@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -130,6 +131,13 @@ class HomeController extends Controller
         ]);
 
         return back()->with('success', 'ID uploaded successfully');
+    }
+
+    public function referrals(){
+        $referrals = Auth::user()->referrals->count();
+        $data['earning'] = [];
+        $data['referral'] = [];
+        return view('referrals', compact('referrals', 'data'));
     }
 
 }

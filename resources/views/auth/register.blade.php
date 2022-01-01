@@ -58,6 +58,16 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="referral_id" class="input-label">{{ __('Referral ID') }}</label>
+                                <input id="referral_id" type="text" class="form-control @error('email') is-invalid @enderror" name="referral_id" value="{{ old('referral_id') }}">
+
+                                @error('referral_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
                             <div class="form-group">
                                 <label for="password" class="input-label">{{ __('Password') }}</label>

@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::middleware(['auth','verify'])->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
     Route::group(['middleware' => 'registration_completed'], function(){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -45,7 +45,7 @@ Route::middleware(['auth','verify'])->group(function () {
         Route::post('/ticket/comment', [App\Http\Controllers\TicketController::class, 'comment'])->name('ticket.comment');
         Route::get('/ticket/{id}', [App\Http\Controllers\TicketController::class, 'ticket'])->name('ticket.show');
         // Referrals
-        Route::get('/referrals', [App\Http\Controllers\HomeController::class, 'index'])->name('referrals');
+        Route::get('/referrals', [App\Http\Controllers\HomeController::class, 'referrals'])->name('referrals');
 
         // Profile and KYC
         Route::get('/profile',  [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');

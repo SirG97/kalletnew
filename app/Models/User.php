@@ -49,6 +49,7 @@ class User extends Authenticatable
         'referral',
         'referral_paid',
         'next_check',
+
     ];
 
     /**
@@ -69,4 +70,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $appends = [
+        'referral_link'
+    ];
+
+    /**
+     * A user has a referrer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'referral_id', 'id');
+    }
+
+    /**
+     * A user has many referrals.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function referrals()
+    {
+        return $this->hasMany(User::class, 'referral_id', 'id');
+    }
+
+    public function getReferralLinkAttribute()
+    {
+        return $this->referral_link = route('register', ['ref' => $this->username]);
+    }
 }

@@ -91,7 +91,7 @@
                     <!-- ============================================================== -->
                     <li>
                         <a class="profile-pic" href="#">
-                            <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
+                            <img src="{{ asset('plugins/images/users/varun.jpg')}}" alt="user-img" width="36"
                                  class="img-circle"><span class="text-white font-medium">Steave</span></a>
                     </li>
                     <!-- ============================================================== -->
@@ -112,6 +112,10 @@
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
+                <div class="user_id ms-4 pl-3 mx-4 my-2 py-3 ps-1 font-bold" style="background-color: #edf1f5; border-radius: 5px">
+                    User_id : {{ auth()->user()->user_id }}
+                </div>
+
                 <ul id="sidebarnav">
                     <!-- User Profile-->
                     <li class="sidebar-item pt-2">

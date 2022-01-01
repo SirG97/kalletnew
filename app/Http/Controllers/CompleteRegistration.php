@@ -48,7 +48,8 @@ class CompleteRegistration extends Controller
             'country' => $request->country,
             'currency' => $request->currency,
             'pin' => $request->pin,
-            'user_id' => $location,
+            'user_id' => $user_id,
+            'qr' => $location,
         ]);
 
 

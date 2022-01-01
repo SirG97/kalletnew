@@ -21,7 +21,7 @@
                             <h3 class="box-title mb-0">Support ticket</h3>
                             <div class="col-md-2 col-sm-4 col-xs-6 ms-auto">
                                 <a href="{{ route('ticket.create') }}"
-                                   class="fw-normal btn btn-success pull-right ms-3 waves-effect waves-light text-white">Open new ticket</a>
+                                   class="fw-normal btn btn-success pull-right ms-3 waves-effect waves-light text-white">Create ticket</a>
                             </div>
                         </div>
                         <div class="table-responsive">

@@ -76,7 +76,7 @@
                             <div class="form-group text-center mt-4 mb-3">
                                 <div class="col-xs-12">
                                     <button class="btn btn-info d-block w-100 waves-effect waves-light" type="submit">
-                                        Log In
+                                        Register
                                     </button>
                                 </div>
                             </div>
@@ -84,8 +84,8 @@
                             <div class="form-group mb-0 mt-4">
                                 <div class="col-sm-12 justify-content-center d-flex">
                                     <p>
-                                        Don't have an account?
-                                        <a href="{{ route('admin.register') }}" class="text-info font-weight-medium ms-1">Sign Up</a>
+                                        Have an account?
+                                        <a href="{{ route('login') }}" class="text-info font-weight-medium ms-1">Login</a>
                                     </p>
                                 </div>
                             </div>

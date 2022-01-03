@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="form-floating p-form mb-3">
-                                        <input type="date" name="dob" class="form-control" placeholder="{{__('Date of Birth')}}"  value="{{$user->dob}}">
+                                        <input type="date" name="dob" class="form-control" placeholder="{{__('Date of Birth')}}"  value="{{$user->dob}}" readonly>
                                         <label>{{__('Date of Birth')}}</label>
                                     </div>
                                 </div>
@@ -92,15 +92,15 @@
                             </form>
                         </div>
                     </div>
-{{--                    <div class="card">--}}
-{{--                        <div class="card-body text-center">--}}
-{{--                            <h3 class="card-title mb-3">{{__('Delete Account')}}</h3>--}}
-{{--                            <p class="card-text text-sm text-dark">{{__('Closing this account means you will no longer be able to access this account on')}}</p>--}}
-{{--                            <div class="text-right">--}}
-{{--                                <a data-toggle="modal" data-target="#modal-formp" href="" class="btn btn-danger btn-block"><i class="fad fa-trash"></i> {{__('Delete Account')}}</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h3 class="card-title mb-3">{{__('Delete Account')}}</h3>
+                            <p class="card-text text-sm text-dark">{{__('Closing this account means you will no longer be able to access this account on')}}</p>
+                            <div class="text-right">
+                                <a data-toggle="modal" data-target="#modal-formp" href="#" class="btn btn-danger btn-block text-white"><i class="fa fa-trash"></i> {{__('Delete Account')}}</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

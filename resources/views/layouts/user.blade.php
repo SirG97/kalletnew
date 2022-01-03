@@ -169,21 +169,40 @@
                         </a>
                     </li>
                     <li class="sidebar-item selected">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark active" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="far fa-sun"></i>
                             <span class="hide-menu">Settings</span>
                         </a>
-                        <ul aria-expanded="false" class="collapse first-level in">
+
+                        <ul aria-expanded="false" class="collapse first-level">
                             <li class="sidebar-item">
                                 <a href="{{ route('profile') }}" class="sidebar-link">
-                                    <i class="far fa-user"></i>
+                                    <i class="mdi mdi-view-quilt"></i>
                                     <span class="hide-menu">Profile</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('KYC') }}" class="sidebar-link">
-                                    <i class="far fa-address-card"></i>
-                                    <span class="hide-menu">KYC</span>
+                                    <i class="mdi mdi-view-quilt"></i>
+                                    <span class="hide-menu">Know Your Customer</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('audits') }}" class="sidebar-link">
+                                    <i class="mdi mdi-view-quilt"></i>
+                                    <span class="hide-menu">Audit Logs</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('passwords') }}" class="sidebar-link">
+                                    <i class="mdi mdi-view-quilt"></i>
+                                    <span class="hide-menu">Passwords & Devices</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('2fa') }}" class="sidebar-link">
+                                    <i class="mdi mdi-view-quilt"></i>
+                                    <span class="hide-menu">2fa Security</span>
                                 </a>
                             </li>
 

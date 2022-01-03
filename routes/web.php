@@ -55,6 +55,9 @@ Route::middleware(['auth','verified'])->group(function () {
 //        Route::get('kyc', [App\Http\Controllers\HomeController::class, 'check_kyc'])->name('kyc');
         Route::get('no-kyc', [App\Http\Controllers\HomeController::class, 'no_kyc'])->name('no-kyc');
         Route::post('upload-kyc', [App\Http\Controllers\HomeController::class, 'uploadKYC'])->name('upload-kyc');
+        Route::get('/audits',  [App\Http\Controllers\HomeController::class, 'audits'])->name('audits');
+        Route::get('/passwords',  [App\Http\Controllers\HomeController::class, 'passwords'])->name('passwords');
+        Route::get('/2fa',  [App\Http\Controllers\HomeController::class, 'twoFA'])->name('2fa');
 
 
 //        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

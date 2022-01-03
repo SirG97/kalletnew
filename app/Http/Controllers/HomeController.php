@@ -51,7 +51,7 @@ class HomeController extends Controller
         ]);
         $user = User::findOrFail($id);
         $user->address = $request->address;
-        $user->dob = $request->dob;
+//        $user->dob = $request->dob;
         $user->phone = $request->phone;
         if($user->email!=$request->email){
             $user->email_verified_at = NULL;
@@ -138,6 +138,14 @@ class HomeController extends Controller
         $data['earning'] = [];
         $data['referral'] = [];
         return view('referrals', compact('referrals', 'data'));
+    }
+
+    public function passwords(){
+
+    }
+
+    public function twoFA(){
+
     }
 
 }

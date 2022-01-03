@@ -30,8 +30,8 @@
                                 <tr>
 
                                     <th class="border-top-0">Ticket Id</th>
-                                    <th class="border-top-0">Title</th>
-                                    <th class="border-top-0">Body</th>
+{{--                                    <th class="border-top-0">Title</th>--}}
+{{--                                    <th class="border-top-0">Body</th>--}}
                                     <th class="border-top-0">Status</th>
                                     <th class="border-top-0">Date</th>
                                     <th class="border-top-0">Action</th>
@@ -42,8 +42,8 @@
                                     @foreach($tickets as $ticket)
                                         <tr>
                                             <td scope="row" class="txt-oflo">#{{$ticket['ticket_id']}}</td>
-                                            <td>{{ $ticket['title'] }}</td>
-                                            <td>{{ $ticket['message'] }}</td>
+{{--                                            <td>{{ $ticket['title'] }}</td>--}}
+{{--                                            <td>{{ $ticket['message'] }}</td>--}}
                                             <td>
                                                 @if($ticket['status'] == 'inprogress')
                                                     <span class="badge bg-warning">In progress</span>

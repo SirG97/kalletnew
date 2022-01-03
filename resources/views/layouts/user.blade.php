@@ -112,9 +112,9 @@
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
-                <div class="user_id ms-4 pl-3 mx-4 my-2 py-3 ps-1 font-bold" style="background-color: #edf1f5; border-radius: 5px">
-                    User_id : {{ auth()->user()->user_id }}
-                </div>
+{{--                <div class="user_id ms-4 pl-3 mx-4 my-2 py-3 ps-1 font-bold" style="background-color: #edf1f5; border-radius: 5px">--}}
+{{--                    User_id : {{ auth()->user()->user_id }}--}}
+{{--                </div>--}}
 
                 <ul id="sidebarnav">
                     <!-- User Profile-->

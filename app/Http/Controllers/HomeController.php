@@ -84,7 +84,7 @@ class HomeController extends Controller
         return back()->with('success', 'Profile picture uploaded successfully');
     }
 
-    public function audit()
+    public function audits()
     {
         $data['title']='Audit Logs';
         $data['audit']=Audit::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();

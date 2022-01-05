@@ -17,7 +17,11 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laraveldaily/laravel-charts": "^0.1.27",
-        "simplesoftwareio/simple-qrcode": "~4"
+        "paragonie/constant_time_encoding": "^2.4",
+        "pragmarx/google2fa": "^8.0",
+        "rappasoft/laravel-authentication-log": "^1.2",
+        "simplesoftwareio/simple-qrcode": "~4",
+        "sonata-project/google-authenticator": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

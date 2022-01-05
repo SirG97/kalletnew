@@ -17,6 +17,8 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('plugins/images/favicon.png') }}">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
+
     <link href="{{ asset('plugins/bower_components/chartist/dist/chartist.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css')}}">
     <!-- Custom CSS -->
@@ -194,7 +196,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('passwords') }}" class="sidebar-link">
+                                <a href="{{ route('password') }}" class="sidebar-link">
                                     <i class="mdi mdi-view-quilt"></i>
                                     <span class="hide-menu">Passwords & Devices</span>
                                 </a>
@@ -280,7 +282,8 @@
 <!-- ============================================================== -->
 <script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap tether Core JavaScript -->
-<script src="{{ asset('bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('plugins/bower_components/popper.js/dist/popper.min.js')}}"></script>
 <script src="{{ asset('js/app-style-switcher.js')}}"></script>
 <script src="{{ asset('plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
 <!--Wave Effects -->

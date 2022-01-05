@@ -3,27 +3,9 @@
 @section('content')
     <div class="container">
         <div class="page-content mt-3">
-            @if (session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error') }}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $message)
-                            <li>{{ $message }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-        @endif
-            <!-- ============================================================== -->
             @include('includes.feedback')
+            <!-- ============================================================== -->
+            @include('includes.balance')
             <!-- Pay, topup transfer -->
             <!-- ============================================================== -->
 

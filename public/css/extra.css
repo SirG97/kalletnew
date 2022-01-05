@@ -17,6 +17,10 @@
     border-color: #2cd07e;
 }
 
+.btn-radius{
+    border-radius: 7px;
+}
+
 .alert-danger {
     color: #fff;
     background-color: #ff5050;

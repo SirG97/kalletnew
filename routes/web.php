@@ -56,8 +56,14 @@ Route::middleware(['auth','verified'])->group(function () {
         Route::get('no-kyc', [App\Http\Controllers\HomeController::class, 'no_kyc'])->name('no-kyc');
         Route::post('upload-kyc', [App\Http\Controllers\HomeController::class, 'uploadKYC'])->name('upload-kyc');
         Route::get('/audits',  [App\Http\Controllers\HomeController::class, 'audits'])->name('audits');
-        Route::get('/passwords',  [App\Http\Controllers\HomeController::class, 'passwords'])->name('passwords');
-        Route::get('/2fa',  [App\Http\Controllers\HomeController::class, 'twoFA'])->name('2fa');
+        Route::get('/password',  [App\Http\Controllers\HomeController::class, 'password'])->name('password');
+        Route::post('/password',  [App\Http\Controllers\HomeController::class, 'changePassword'])->name('password.change');
+        Route::get('/2fa',  [App\Http\Controllers\Google2FAController::class, 'twoFA'])->name('2fa');
+        Route::post('/2fa/toggle',  [App\Http\Controllers\Google2FAController::class, 'toggleTwoFA'])->name('2fa.toggle');
+        Route::get('/2fa/enable',  [App\Http\Controllers\Google2FAController::class, 'enableTwoFA'])->name('2fa.enable');
+        Route::get('/2fa/disable',  [App\Http\Controllers\Google2FAController::class, 'disableTwoFA'])->name('2fa.disable');
+        Route::get('/2fa/validate',  [App\Http\Controllers\Google2FAController::class, 'getValidateToken'])->name('token.get');
+        Route::post('/2fa/validate',  [App\Http\Controllers\Google2FAController::class, 'postValidateToken'])->name('token.post');
 
 
 //        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

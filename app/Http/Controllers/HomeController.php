@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -140,12 +141,30 @@ class HomeController extends Controller
         return view('referrals', compact('referrals', 'data'));
     }
 
-    public function passwords(){
-
+    public function password(){
+        $devices = User::find(auth()->user()->id)->authentications;
+        return view('password', compact('devices'));
     }
 
-    public function twoFA(){
-
+    public function changePassword(Request $request){
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+        $user = User::where('id',auth()->user()->id)->first();
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $audit['user_id']= Auth::guard()->user()->id;
+            $audit['reference']=Str::random(16);
+            $audit['log']='Changed Password';
+            Audit::create($audit);
+            return back()->with('success', 'Password Changed successfully.');
+        }elseif (!Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Invalid password');
+        }
     }
+
+
 
 }

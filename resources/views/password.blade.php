@@ -55,6 +55,7 @@
                         <table class="table table-flush" id="datatable-buttons">
                             <thead>
                             <tr>
+                                <th>{{__('S/N')}}</th>
                                 <th>{{__('IP Address')}}</th>
                                 <th>{{__('Browser')}}</th>
                                 <th>{{__('Login at')}}</th>
@@ -62,8 +63,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($devices as $device)
+                            @foreach($devices as $k => $device)
                                 <tr>
+                                    <td>{{ ++$k }}</td>
                                     <td>{{ $device['ip_address'] }}.</td>
                                     <td>{{ $device['user_agent'] }}</td>
                                     <td>{{date("Y/m/d h:i a", strtotime($device['login_at']))}}</td>

@@ -13,21 +13,19 @@
         <table class="table table-flush" id="datatable-buttons">
           <thead>
             <tr>
-              <th>{{__('S / N')}}</th>
-              <th>{{__('Reference ID')}}</th>
+              <th>{{__('S/N')}}</th>
+              <th>{{__('Ref ID')}}</th>
               <th>{{__('Log')}}</th>
               <th>{{__('Created')}}</th>
-              <th>{{__('Updated')}}</th>
             </tr>
           </thead>
           <tbody>
             @foreach($audit as $k=>$val)
               <tr>
                 <td>{{++$k}}.</td>
-                <td>#{{$val->trx}}</td>
+                <td>#{{$val->reference}}</td>
                 <td>{{$val->log}}</td>
                 <td>{{date("Y/m/d h:i:A", strtotime($val->created_at))}}</td>
-                <td>{{date("Y/m/d h:i:A", strtotime($val->updated_at))}}</td>
             </tr>
             @endforeach
           </tbody>

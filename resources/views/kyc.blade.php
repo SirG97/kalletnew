@@ -63,6 +63,57 @@
                     </div>
                 </form>
                 <!-- End Form -->
+
+                <!-- Form -->
+                <form role="form" class="mt-3" action="{{ route('upload-kyc-address') }}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    <div class="mb-5 mb-md-7">
+                        <h1 class="h2">{{ __('Proof of address') }}</h1>
+                        <p>{{ __('Upload a proof that confirms your address') }}</p>
+                    </div>
+                    <!-- End Title -->
+                    @if($user->kyc_address_link == null)
+                        <div class="text-center">
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFileLang" name="kyc_address_link" accept="image/*" required>
+                                    <label class="custom-file-label" for="customFileLang">{{__('Select document')}}</label>
+                                </div>
+                            </div>
+                            @if ($errors->has('kyc_address_link'))
+                                <span class="error form-error-msg ">
+                        <strong>{{ $errors->first('kyc_address_link') }}</strong>
+                        </span>
+                            @endif
+                        </div>
+                    @endif
+                    <div class="text-center">
+                        @if($user->kyc_address_link == null && $user->kyc_address_status == 0 || $user->kyc_address_link == null && $user->kyc_aaddress_status == 2)
+                            <button type="submit" class="btn btn-primary btn-block transition-3d-hover">{{__('Upload')}}</button>
+                        @endif
+
+                        @if($user->kyc_address_link != null && $user->kyc_address_status == 0)
+                            <p>Status:
+                                <span class="badge badge-primary mb-3 bg-primary">{{__('Under review')}}</span>
+                            </p>
+
+
+                        @elseif($user->kyc_address_link != null && $user->kyc_address_status==1)
+                            <p>
+                                Status:
+                                <span class="badge badge-success bg-success mb-3">{{__('Approved')}}</span>
+                            </p>
+
+
+                        @elseif($user->kyc_address_link==null && $user->kyc_address_status==2)
+                            <p>
+                                Status:
+                                <span class="badge badge-primary bg-danger mb-3">Declined: {{$user->kyc_address_reason}}</span>
+                            </p>
+                        @endif
+                    </div>
+                </form>
+                <!-- End Form -->
             </div>
         </div>
     </div>

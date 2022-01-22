@@ -134,6 +134,23 @@ class HomeController extends Controller
         return back()->with('success', 'ID uploaded successfully');
     }
 
+    public function uploadProofOfAddress(Request $request){
+        $request->validate([
+            'kyc_address_link' => 'required|image|mimes:jpeg,png,jpg',
+        ]);
+
+        if(auth()->user()->kyc_address_link !== null or !empty(auth()->user()->kyc_address_link)){
+            Storage::disk('public')->delete(auth()->user()->kyc_address_link);
+        }
+        $url =  Storage::disk('public')->put('address', $request->kyc_address_link);
+
+        auth()->user()->update([
+            'kyc_address_link' => $url,
+        ]);
+
+        return back()->with('success', 'Proof of address uploaded successfully');
+    }
+
     public function referrals(){
         $referrals = Auth::user()->referrals->count();
         $data['earning'] = [];

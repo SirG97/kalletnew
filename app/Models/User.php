@@ -50,7 +50,9 @@ class User extends Authenticatable
         'referral',
         'referral_paid',
         'next_check',
-
+        'kyc_address_link',
+        'kyc_address_reason',
+        'kyc_address_status',
     ];
 
     /**

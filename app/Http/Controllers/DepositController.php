@@ -145,7 +145,8 @@ class DepositController extends Controller
         // Validate
         $request->validate([
             'username' => 'required|max:255',
-            'amount' => 'required|numeric'
+            'amount' => 'required|numeric',
+            'pin' => 'required'
         ]);
 
         // Check if the user exist and not himself
@@ -156,6 +157,10 @@ class DepositController extends Controller
 
         if($userToCredit->username === auth()->user()->username){
             return back()->with('error', 'You cannot transfer to yourself');
+        }
+
+        if($request->pin !== auth()->user()->pin){
+            return back()->with('error', 'Wrong pin');
         }
         //Check for insufficient balance
         $userToDebit = Wallet::where('user_id', auth()->user()->id)->first();

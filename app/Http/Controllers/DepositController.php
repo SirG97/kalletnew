@@ -6,6 +6,7 @@ use App\Models\Deposit;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Wallet;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -25,18 +26,84 @@ class DepositController extends Controller
             'amount' => 'required|numeric'
         ]);
         // Create a deposit log to check against when the transaction is to be verified
+        // Bearer FLWSECK_TEST-f94f4dc93aba5601db52d14d7a5a7326-X
+        $amount = $request->amount;
         $deposit = Deposit::create([
             'trx_ref' => Str::random(12),
-            'amount' => $request->amount * 100,
+            'amount' => $amount,
             'email' => auth()->user()->email,
             'user_id' => auth()->user()->id,
+            'gateway' => $request->gateway,
             'status' => 'pending'
         ]);
+
+        if($request->gateway === 'paystack'){
+           $result = $this->paystack($deposit);
+            if($result && $result->status === true){
+                return redirect($result->data->authorization_url);
+            }else{
+                dd($result);
+            }
+        }else{
+            $url = "https://api.flutterwave.com/v3/payments";
+            $fields = json_encode([
+                'amount' => $deposit->amount,
+                'currency' => 'NGN',
+                'tx_ref' => $deposit->trx_ref,
+                'payment_options' => 'card,ussd',
+                'customer' => [
+                    'email' => auth()->user()->email,
+                    'name' => auth()->user()->name
+                ],
+                'redirect_url' => route('fund.verify.flutterwave')
+            ]);
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $fields,
+                CURLOPT_HTTPHEADER => [
+                    "Accept: application/json",
+                    "Authorization: Bearer " . config('app.FLUTTERWAVE_SECRET'),
+                    "Content-Type: application/json"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                return back()->with('error', 'There is a problem using this payment gateway. please try again');
+            } else {
+                 $result = json_decode($response);
+
+            }
+            if($result and $result->status === 'error'){
+
+                return back()->with('error', 'There is a problem using this payment gateway. ');
+            }
+
+            return redirect($result->data->link);
+
+        }
+
+    }
+
+    protected function paystack($data){
         $url = "https://api.paystack.co/transaction/initialize";
         $fields = [
             'email' => auth()->user()->email,
-            'amount' => $request->amount * 100,
-            'reference' => $deposit->trx_ref,
+            'amount' => $data->amount,
+            'reference' => $data->trx_ref,
             'callback_url' => route('fund.verify')
         ];
 
@@ -59,11 +126,16 @@ class DepositController extends Controller
         //execute post
         $result = curl_exec($ch);
         $result = json_decode($result);
-        if($result && $result->status === true){
-            return redirect($result->data->authorization_url);
-        }else{
-            dd($result);
-        }
+        return $result;
+
+    }
+
+    protected function flutterwave($data){
+
+    }
+
+    protected function stripe($data){
+
     }
 
     public function verifyFund(Request $request){
@@ -98,7 +170,7 @@ class DepositController extends Controller
             return redirect(route('fund'))->with('error', "Error #:" . $err);
         } else {
             $response = json_decode($response);
-//            dd($response);
+            //            dd($response);
             if($response->status !== true){
                 return redirect(route('fund'))->with('error', "Error #:" . $response->message);
             }
@@ -139,6 +211,81 @@ class DepositController extends Controller
                 }
             }
         }
+    }
+
+
+    public  function verifyFlutterwave(Request $request){
+
+        $reference = $request->tx_ref;
+//        dd($request->all(), $request->trx);
+        $deposit = Deposit::where('trx_ref', $reference)->first();
+
+        if($deposit == null){
+            return redirect(route('fund'))->with('error', "Something went wrong, please try again");
+        }
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.flutterwave.com/v3/transactions/" . $request->transaction_id . "/verify",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer " . config('app.FLUTTERWAVE_SECRET'),
+                "Cache-Control: no-cache",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+//        dd($response);
+
+            $response = json_decode($response);
+
+            if($response->status !== 'success'){
+                return redirect(route('fund'))->with('error', "Error #:" . $response->message);
+            }
+
+            if($response->status === 'success'){
+                if((int)$deposit->amount === (int)$response->data->amount and
+                    $deposit->trx_ref === $response->data->tx_ref){
+                    $deposit->status = 'success';
+                    $deposit->save();
+                    $amount = $response->data->amount;
+                    // Check if the user has a wallet
+                    $wallet = Wallet::where('user_id', auth()->user()->id)->first();
+                    $balance_before = 0;
+                    if($wallet !== null){
+                        // Update balance
+                        $balance_before = $wallet->balance;
+                        $wallet->balance = $wallet->balance + $amount;
+                        $wallet->save();
+                    }else{
+                        $wallet = Wallet::create([
+                            'user_id' => auth()->user()->id,
+                            'balance' => $amount
+                        ]);
+                    }
+                    // Add record to the transaction table
+
+                    Transaction::create([
+                        'user_id' => auth()->user()->id,
+                        'trx_ref' => Str::random(10),
+                        'txn_type' => 'credit',
+                        'purpose' => 'deposit',
+                        'amount' => $amount,
+                        'balance_before' => $balance_before,
+                        'balance_after' => $balance_before + $amount
+                    ]);
+
+                    return redirect(route('fund'))->with('success', "Account funded successfully");
+                }
+            }
+
     }
 
     public function transfer(Request $request){
@@ -205,4 +352,5 @@ class DepositController extends Controller
         return back()->with('success', $userToCredit->username . ' has been credited successfully');
 
     }
+
 }

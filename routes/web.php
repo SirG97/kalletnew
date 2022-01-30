@@ -27,6 +27,7 @@ Route::middleware(['auth','verified'])->group(function () {
         Route::get('/fund', [App\Http\Controllers\DepositController::class, 'fund'])->name('fund');
         Route::post('/fund', [App\Http\Controllers\DepositController::class, 'initializeFund'])->name('fund.initialize');
         Route::get('/verifyFund', [App\Http\Controllers\DepositController::class, 'verifyFund'])->name('fund.verify');
+        Route::get('/verifyFlutterwave', [App\Http\Controllers\DepositController::class, 'verifyFlutterwave'])->name('fund.verify.flutterwave');
 
         // QR Payment
         Route::get('/qrpayment', [App\Http\Controllers\TransactionController::class, 'getQRPage'])->name('QRPayment');

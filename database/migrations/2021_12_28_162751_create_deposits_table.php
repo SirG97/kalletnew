@@ -21,6 +21,7 @@ class CreateDepositsTable extends Migration
             $table->string('amount');
             $table->string('currency')->nullable();
             $table->string('status');
+            $table->string('');
             $table->timestamps();
         });
     }

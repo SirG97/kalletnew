@@ -56,6 +56,15 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'FLUTTERWAVE_SECRET' => env('FLUTTERWAVE_SECRET'),
+
+    'FLUTTERWAVE_PUBLIC' => env('FLUTTERWAVE_PUBLIC'),
+
+    'PAYSTACK_SECRET' => env('PAYSTACK_SECRET'),
+
+    'PAYSTACK_PUBLIC' => env('PAYSTACK_PUBLIC'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -20,6 +20,14 @@
                             <form class="" method="POST" action="{{ route('fund.initialize') }}">
                                 @csrf
                                 <div class="form-floating mb-3">
+
+                                        <select class="form-select mr-sm-2" id="method" name="gateway">
+                                            <option value="paystack">Paystack</option>
+                                            <option value="flutterwave">Flutterwave</option>
+                                        </select>
+                                    <label class="mr-sm-2" for="method">Payment Method</label>
+                                </div>
+                                <div class="form-floating mb-3">
                                     <input type="text" name="amount" class="form-control" placeholder="Amount">
                                     <label>Amount</label>
                                 </div>

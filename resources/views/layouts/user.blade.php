@@ -198,7 +198,7 @@
                             <li class="sidebar-item">
                                 <a href="{{ route('password') }}" class="sidebar-link">
                                     <i class="mdi mdi-view-quilt"></i>
-                                    <span class="hide-menu">Passwords & Devices</span>
+                                    <span class="hide-menu">Passwords & Pins</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">

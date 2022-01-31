@@ -178,7 +178,26 @@ class HomeController extends Controller
             Audit::create($audit);
             return back()->with('success', 'Password Changed successfully.');
         }elseif (!Hash::check($request->password, $user->password)) {
-            return back()->with('error', 'Invalid password');
+            return back()->with('error', 'Wrong password');
+        }
+    }
+
+    public function changePin(Request $request){
+        $request->validate([
+            'old_pin' => 'required',
+            'pin' => 'required|numeric|digits_between:0000,9999|confirmed'
+        ]);
+        $user = User::where('id',auth()->user()->id)->first();
+        if ($request->old_pin === $user->pin) {
+            $user->pin = $request->pin;
+            $user->save();
+            $audit['user_id']= Auth::guard()->user()->id;
+            $audit['reference']=Str::random(16);
+            $audit['log']='Changed Pin';
+            Audit::create($audit);
+            return back()->with('success', 'Pin Changed successfully.');
+        }elseif ($request->pin !== $user->pin) {
+            return back()->with('error', 'Wrong pin');
         }
     }
 

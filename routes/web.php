@@ -60,6 +60,7 @@ Route::middleware(['auth','verified'])->group(function () {
         Route::get('/audits',  [App\Http\Controllers\HomeController::class, 'audits'])->name('audits');
         Route::get('/password',  [App\Http\Controllers\HomeController::class, 'password'])->name('password');
         Route::post('/password',  [App\Http\Controllers\HomeController::class, 'changePassword'])->name('password.change');
+        Route::post('/pin',  [App\Http\Controllers\HomeController::class, 'changePin'])->name('pin.change');
         Route::get('/2fa',  [App\Http\Controllers\Google2FAController::class, 'twoFA'])->name('2fa');
         Route::post('/2fa/toggle',  [App\Http\Controllers\Google2FAController::class, 'toggleTwoFA'])->name('2fa.toggle');
         Route::get('/2fa/enable',  [App\Http\Controllers\Google2FAController::class, 'enableTwoFA'])->name('2fa.enable');

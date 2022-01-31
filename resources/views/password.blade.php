@@ -5,7 +5,7 @@
 {{--  <div class="content-wrapper">--}}
     @include('includes.feedback')
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card">
             <div class="card-header checkx">
                 <h5 class="mb-0 text-dark font-weight-bolder">{{__('Password')}}</h5>
@@ -39,45 +39,77 @@
                   <li>{{__('At least one number, symbol, or whitespace character.')}}</li>
                 </ul>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-success btn-radius btn-lg text-white" id="update_password">{{__('Update Password')}}</button>
+                    <button type="submit" class="btn btn-success btn-radius text-white" id="update_password">{{__('Update Password')}}</button>
                 </div>
             </form>
           </div>
         </div>
       </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header header-elements-inline">
-                        <h5 class="mb-0 text-dark font-weight-bolder">{{__('Devices')}}</h5>
-                    </div>
-                    <div class="table-responsive py-4">
-                        <table class="table table-flush" id="datatable-buttons">
-                            <thead>
-                            <tr>
-                                <th>{{__('S/N')}}</th>
-                                <th>{{__('IP Address')}}</th>
-                                <th>{{__('Browser')}}</th>
-                                <th>{{__('Login at')}}</th>
-                                <th>{{__('Successful')}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($devices as $k => $device)
-                                <tr>
-                                    <td>{{ ++$k }}</td>
-                                    <td>{{ $device['ip_address'] }}.</td>
-                                    <td>{{ $device['user_agent'] }}</td>
-                                    <td>{{date("Y/m/d h:i a", strtotime($device['login_at']))}}</td>
-                                    <td>{{$device['login_successful'] == 1 ? 'Yes': 'No'}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header checkx">
+                    <h5 class="mb-0 text-dark font-weight-bolder">{{__('Pin')}}</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{route('pin.change')}}" method="post">
+                        @csrf
+
+                        <div class="form-floating mb-3">
+                            <input type="password" id="old_password" name="old_pin"  class="form-control" placeholder="{{__('Current pin')}}" required>
+                            <label for="old_password">{{__('Current pin')}}</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" name="pin" id="pin" class="form-control" placeholder="{{__('New pin')}}" required>
+                            <label for="password">{{__('New pin')}}</label>
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+                            <input type="password" name="pin_confirmation" id="pin_confirmation" class="form-control" placeholder="{{__('Confirm pin')}}" required>
+                            <label for="password_confirmation">{{__('Confirm pin')}}</label>
+                        </div>
+
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success btn-radius text-white" id="update_pin">{{__('Update Pin')}}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-md-12">--}}
+{{--                <div class="card">--}}
+{{--                    <div class="card-header header-elements-inline">--}}
+{{--                        <h5 class="mb-0 text-dark font-weight-bolder">{{__('Devices')}}</h5>--}}
+{{--                    </div>--}}
+{{--                    <div class="table-responsive py-4">--}}
+{{--                        <table class="table table-flush" id="datatable-buttons">--}}
+{{--                            <thead>--}}
+{{--                            <tr>--}}
+{{--                                <th>{{__('S/N')}}</th>--}}
+{{--                                <th>{{__('IP Address')}}</th>--}}
+{{--                                <th>{{__('Browser')}}</th>--}}
+{{--                                <th>{{__('Login at')}}</th>--}}
+{{--                                <th>{{__('Successful')}}</th>--}}
+{{--                            </tr>--}}
+{{--                            </thead>--}}
+{{--                            <tbody>--}}
+{{--                            @foreach($devices as $k => $device)--}}
+{{--                                <tr>--}}
+{{--                                    <td>{{ ++$k }}</td>--}}
+{{--                                    <td>{{ $device['ip_address'] }}.</td>--}}
+{{--                                    <td>{{ $device['user_agent'] }}</td>--}}
+{{--                                    <td>{{date("Y/m/d h:i a", strtotime($device['login_at']))}}</td>--}}
+{{--                                    <td>{{$device['login_successful'] == 1 ? 'Yes': 'No'}}</td>--}}
+{{--                                </tr>--}}
+{{--                            @endforeach--}}
+{{--                            </tbody>--}}
+{{--                        </table>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
   </div>
 @endsection

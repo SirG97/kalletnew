@@ -82,7 +82,7 @@ class DepositController extends Controller
             curl_close($curl);
 
             if ($err) {
-                return back()->with('error', 'There is a problem using this payment gateway. please try again');
+                return back()->with('error', 'There is a problem using this payment gateway. please try again' . $err);
             } else {
                  $result = json_decode($response);
 

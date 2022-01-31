@@ -94,7 +94,9 @@
                     <li>
                         <a class="profile-pic" href="#">
                             <img src="{{auth()->user()->photo == null ? asset('plugins/images/users/varun.jpg') : asset('/storage').'/'. auth()->user()->photo }}" alt="user-img" width="36"
-                                 class="img-circle"><span class="text-white font-medium">{{ auth()->user()->first_name }}</span></a>
+                                 class="img-circle" style="height: 40px; width:40px;">
+                            <span class="text-white font-medium">{{ auth()->user()->first_name }}</span>
+                        </a>
                     </li>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->

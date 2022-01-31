@@ -88,7 +88,6 @@ class DepositController extends Controller
 
             }
             if($result and $result->status === 'error'){
-dd($result);
                 return back()->with('error', 'There is a problem using this payment gateway. ');
             }
 
